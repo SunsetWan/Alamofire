@@ -543,7 +543,11 @@ public class Request {
             }
 
             if mutableState.state.canTransitionTo(.resumed) {
-                underlyingQueue.async { if self.delegate?.startImmediately == true { self.resume() } }
+                underlyingQueue.async {
+                    if self.delegate?.startImmediately == true {
+                        self.resume()
+                    }
+                }
             }
         }
     }
