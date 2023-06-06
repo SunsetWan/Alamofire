@@ -1,0 +1,38 @@
+@startuml
+:didCompleteWithError;
+floating note left
+From URLSessionTaskDelegate
+end note
+:Request.didCompleteTask;
+:call validators;
+:retryOrFinish(error:);
+if (will retry?) then (YES)
+:doNotRetryWithError;
+:Or retry/retry with delay;
+else (NO) 
+:finish();
+partition Start the response serializers {
+:appendResponseSerializer;
+:exec responseSerializer();
+floating note left
+* Get serialize result
+* Create `DataResponse`;
+* Pass it
+end note
+if (retryOrNot) then (YES)
+:pretend serialize success;
+:add serialize complete handler;
+:processNextResponseSerializer;
+if (any ResponseSerializer left?) then (NO)
+:exec responseSerializerCompletion handlers;
+:Cleanup the request;
+else (YES)
+:Continue processNextResponseSerializer;
+endif
+else (NO)
+stop
+endif
+}
+endif
+end
+@enduml

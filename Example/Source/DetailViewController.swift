@@ -36,6 +36,7 @@ class DetailViewController: UITableViewController {
 
             title = request?.description
             request?.onURLRequestCreation { [weak self] _ in
+                print("Closure onURLRequestCreation called")
                 self?.title = self?.request?.description
             }
 

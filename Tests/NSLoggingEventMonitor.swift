@@ -117,7 +117,7 @@ public final class NSLoggingEventMonitor: EventMonitor {
     }
 
     public func request(_ request: Request, didCreateURLRequest urlRequest: URLRequest) {
-        NSLog("%@", "Request: \(request) didCreateURLRequest: \(urlRequest)")
+        NSLog("%@", "Request: \(request) didCreateURLRequest: \(urlRequest) and headers\(urlRequest.headers.map { $0 })")
     }
 
     public func request(_ request: Request, didCreateTask task: URLSessionTask) {

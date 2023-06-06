@@ -56,7 +56,7 @@ class MasterViewController: UITableViewController {
                 switch segue.identifier! {
                 case "GET":
                     detailViewController.segueIdentifier = "GET"
-                    return AF.request("https://httpbin.org/get")
+                    return AF.request("https://httpbin.org/get", interceptor: TokenAdapter(token: "sunset111"))
                 case "POST":
                     detailViewController.segueIdentifier = "POST"
                     return AF.request("https://httpbin.org/post", method: .post)
@@ -97,5 +97,26 @@ class MasterViewController: UITableViewController {
         reachability.startListening { status in
             print("Reachability Status Changed: \(status)")
         }
+    }
+}
+
+
+//import os
+//
+//class SunsetLogger {
+//    static let logger = Logger(subsystem: "sunset_learn_af", category: "before creating initial URLRequest")
+//}
+
+class TokenAdapter: RequestInterceptor {
+    let token: String
+
+    init(token: String) {
+        self.token = token
+    }
+
+    func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+        var adaptedRequest = urlRequest
+        adaptedRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        completion(.success(adaptedRequest))
     }
 }

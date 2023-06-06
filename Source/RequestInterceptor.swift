@@ -36,6 +36,7 @@ public struct RequestAdapterState {
 // MARK: -
 
 /// A type that can inspect and optionally adapt a `URLRequest` in some manner if necessary.
+/// Adapter pattern
 public protocol RequestAdapter {
     /// Inspects and adapts the specified `URLRequest` in some manner and calls the completion handler with the Result.
     ///
@@ -115,6 +116,7 @@ public protocol RequestRetrier {
 // MARK: -
 
 /// Type that provides both `RequestAdapter` and `RequestRetrier` functionality.
+/// Interceptor Design Pattern
 public protocol RequestInterceptor: RequestAdapter, RequestRetrier {}
 
 extension RequestInterceptor {

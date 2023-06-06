@@ -1,0 +1,41 @@
+@startuml
+partition Create AF.request (DataRequest) {
+:create URLRequest, encoded;
+:create DataRequest;
+floating note left
+* underlyingQueue
+* serializationQueue
+* eventMonitor
+* interceptor
+end note
+}
+partition Perform this request {
+:check `isCancelled `;
+:insert into Set `activeRequests`;
+:type casting as DataRequest;
+:performDataRequest();
+:dispatchPrecondition;
+:performSetupOperations;
+partition performSetupOperations {
+:URLRequestConvertible -> URLRequest;
+floating note left
+didCreateInitialURLRequest(initialRequest)
+end note
+:check `isCancelled` again;
+:Create RequestAdapter ???;
+}
+partition didCreateURLRequest {
+:check `isCancelled` aagain;
+:fetch sessionTask from Request;
+:add to requestTaskMap;
+floating note left
+key: Request, value: sessionTask
+end note
+:updateStatesForTask;
+floating note left
+if state is resumed,
+call task.resume()
+end note
+}
+}
+@enduml

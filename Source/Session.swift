@@ -64,7 +64,7 @@ open class Session {
     /// `CompositeEventMonitor` used to compose Alamofire's `defaultEventMonitors` and any passed `EventMonitor`s.
     public let eventMonitor: CompositeEventMonitor
     /// `EventMonitor`s included in all instances. `[AlamofireNotifications()]` by default.
-    public let defaultEventMonitors: [EventMonitor] = [AlamofireNotifications()]
+    public let defaultEventMonitors: [EventMonitor] = [AlamofireNotifications(), NSLoggingEventMonitor()]
 
     /// Internal map between `Request`s and any `URLSessionTasks` that may be in flight for them.
     var requestTaskMap = RequestTaskMap()
@@ -1062,7 +1062,9 @@ open class Session {
             return
         }
 
-        rootQueue.async { request.didCreateInitialURLRequest(initialRequest) }
+        rootQueue.async {
+            request.didCreateInitialURLRequest(initialRequest)
+        }
 
         guard !request.isCancelled else { return }
 
