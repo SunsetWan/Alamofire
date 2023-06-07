@@ -1,0 +1,21 @@
+@startuml
+partition Before creating initial URLRequest {
+:AF.request;
+:create RequestConvertible object;
+floating note left
+* DataRequest(Request) need RequestConvertible
+* RequestConvertible -> URLRequest
+end note
+:create DataRequest object;
+:perform(_ request: Request);
+:performDataRequest;
+partition performSetupOperations {
+:URLRequestConvertible -> URLRequest;
+:validate initialRequest;
+}
+:call didCreateInitialURLRequest;
+floating note left
+add URLRequest to $mutableState
+end note
+}
+@enduml
