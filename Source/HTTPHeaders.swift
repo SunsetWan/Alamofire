@@ -80,7 +80,7 @@ public struct HTTPHeaders {
             headers.append(header)
             return
         }
-
+//        headers[index] = header // why not using subscript setter ?
         headers.replaceSubrange(index...index, with: [header])
     }
 
