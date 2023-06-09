@@ -38,3 +38,20 @@ public let AF = Session.default
 
 /// Current Alamofire version. Necessary since SPM doesn't use dynamic libraries. Plus this will be more accurate.
 let version = "5.7.1"
+
+import os
+class AFLogger {
+    static let subsystem = "com.sunset-learn.AF"
+    enum Category: String {
+        case beforeDataTaskFinished
+        case dataTaskFinished
+        case afterDataTaskFinished
+
+        case session = "🤠 session"
+    }
+
+    static func logger(for category: Category) -> Logger {
+        let logger = Logger(subsystem: AFLogger.subsystem, category: category.rawValue.uppercased())
+        return logger
+    }
+}

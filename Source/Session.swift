@@ -1241,12 +1241,13 @@ extension Session: SessionStateProvider {
 
     func didCompleteTask(_ task: URLSessionTask, completion: @escaping () -> Void) {
         dispatchPrecondition(condition: .onQueue(rootQueue))
-
         let didDisassociate = requestTaskMap.disassociateIfNecessaryAfterCompletingTask(task)
-
+        AFLogger.logger(for: .session).debug("\(#function) didDisassociate: \(didDisassociate)")
         if didDisassociate {
+            AFLogger.logger(for: .session).debug("\(#function) directly call completion()")
             completion()
         } else {
+            AFLogger.logger(for: .session).debug("\(#function) map task to completion handler")
             waitingCompletions[task] = completion
         }
     }
