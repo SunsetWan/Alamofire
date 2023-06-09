@@ -493,9 +493,14 @@ public class Request {
     func retryOrFinish(error: AFError?) {
         dispatchPrecondition(condition: .onQueue(underlyingQueue))
 
-        guard !isCancelled, let error = error, let delegate = delegate else { finish(); return }
+        guard !isCancelled, let error = error, let delegate = delegate else {
+            AFLogger.logger(for: .request).debug("Don't make this request retry")
+            finish()
+            return
+        }
 
         delegate.retryResult(for: self, dueTo: error) { retryResult in
+            AFLogger.logger(for: .request).debug("retryResult: \(String(describing: retryResult)), due to \(error)")
             switch retryResult {
             case .doNotRetry:
                 self.finish()
@@ -520,6 +525,7 @@ public class Request {
         if let error = error { self.error = error }
 
         // Start response handlers
+        AFLogger.logger(for: .request).debug("Start response handlers")
         processNextResponseSerializer()
 
         eventMonitor?.requestDidFinish(self)

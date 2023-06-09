@@ -48,6 +48,7 @@ class AFLogger {
         case afterDataTaskFinished
 
         case session = "🤠 session"
+        case request = "🤑 request"
     }
 
     static func logger(for category: Category) -> Logger {
