@@ -107,15 +107,15 @@ class DetailViewController: UITableViewController {
             self.refreshControl?.endRefreshing()
         }
 
-        if let request = request as? DataRequest {
-            request.responseString { response in
-                requestComplete(response.response, response.result)
-            }
-        } else if let request = request as? DownloadRequest {
-            request.responseString { response in
-                requestComplete(response.response, response.result)
-            }
-        }
+//        if let request = request as? DataRequest {
+//            request.responseString { response in
+//                requestComplete(response.response, response.result)
+//            }
+//        } else if let request = request as? DownloadRequest {
+//            request.responseString { response in
+//                requestComplete(response.response, response.result)
+//            }
+//        }
     }
 
     private func downloadedBodyString() -> String {

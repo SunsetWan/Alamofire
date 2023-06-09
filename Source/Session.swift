@@ -173,7 +173,7 @@ open class Session {
     public convenience init(configuration: URLSessionConfiguration = URLSessionConfiguration.af.default,
                             delegate: SessionDelegate = SessionDelegate(),
                             rootQueue: DispatchQueue = DispatchQueue(label: "org.alamofire.session.rootQueue"),
-                            startRequestsImmediately: Bool = true,
+//                            startRequestsImmediately: Bool = true,
                             requestQueue: DispatchQueue? = nil,
                             serializationQueue: DispatchQueue? = nil,
                             interceptor: RequestInterceptor? = nil,
@@ -192,7 +192,7 @@ open class Session {
         self.init(session: session,
                   delegate: delegate,
                   rootQueue: serialRootQueue,
-                  startRequestsImmediately: startRequestsImmediately,
+//                  startRequestsImmediately: startRequestsImmediately,
                   requestQueue: requestQueue,
                   serializationQueue: serializationQueue,
                   interceptor: interceptor,
@@ -1127,6 +1127,7 @@ open class Session {
             switch state {
             case .initialized, .finished:
                 // Do nothing.
+                AFLogger.logger(for: .session).debug("\(#function) state is initialized or finished, do nothing!")
                 break
             case .resumed:
                 task.resume()
@@ -1179,7 +1180,10 @@ extension Session: RequestDelegate {
         session.configuration
     }
 
-    public var startImmediately: Bool { startRequestsImmediately }
+    public var startImmediately: Bool {
+        AFLogger.logger(for: .session).debug("\(#function) startRequestsImmediately: \(self.startRequestsImmediately)")
+        return false
+    }
 
     public func cleanup(after request: Request) {
         activeRequests.remove(request)
