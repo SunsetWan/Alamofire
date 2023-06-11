@@ -76,22 +76,22 @@ class DetailViewController: UITableViewController {
         guard let request = request else {
             return
         }
-
+        
         refreshControl?.isHidden = false
         refreshControl?.beginRefreshing()
-
+        
         let start = CACurrentMediaTime()
-
+        
         let requestComplete: (HTTPURLResponse?, Result<String, AFError>) -> Void = { response, result in
             let end = CACurrentMediaTime()
             self.elapsedTime = end - start
-
+            
             if let response = response {
                 for (field, value) in response.allHeaderFields {
                     self.headers["\(field)"] = "\(value)"
                 }
             }
-
+            
             if let segueIdentifier = self.segueIdentifier {
                 switch segueIdentifier {
                 case "GET", "POST", "PUT", "DELETE":
@@ -102,20 +102,20 @@ class DetailViewController: UITableViewController {
                     break
                 }
             }
-
+            
             self.tableView.reloadData()
             self.refreshControl?.endRefreshing()
         }
-
-//        if let request = request as? DataRequest {
-//            request.responseString { response in
-//                requestComplete(response.response, response.result)
-//            }
-//        } else if let request = request as? DownloadRequest {
-//            request.responseString { response in
-//                requestComplete(response.response, response.result)
-//            }
-//        }
+        
+        if let request = request as? DataRequest {
+            request.responseString { response in
+                requestComplete(response.response, response.result)
+            }
+        } else if let request = request as? DownloadRequest {
+            request.responseString { response in
+                requestComplete(response.response, response.result)
+            }
+        }
     }
 
     private func downloadedBodyString() -> String {
