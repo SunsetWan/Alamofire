@@ -465,9 +465,11 @@ public class Request {
     ///            value is ignored.
     func didCompleteTask(_ task: URLSessionTask, with error: AFError?) {
         dispatchPrecondition(condition: .onQueue(underlyingQueue))
+        AFLogger.logger(for: .request).debug("\(#function) with error: \(error)")
 
         self.error = self.error ?? error
 
+        AFLogger.logger(for: .request).debug("\(#function) run validators")
         validators.forEach { $0() }
 
         eventMonitor?.request(self, didCompleteTask: task, with: error)
@@ -494,13 +496,13 @@ public class Request {
         dispatchPrecondition(condition: .onQueue(underlyingQueue))
 
         guard !isCancelled, let error = error, let delegate = delegate else {
-            AFLogger.logger(for: .request).debug("Don't make this request retry")
+            AFLogger.logger(for: .request).debug("\(#function) Don't make this request retry")
             finish()
             return
         }
 
         delegate.retryResult(for: self, dueTo: error) { retryResult in
-            AFLogger.logger(for: .request).debug("retryResult: \(String(describing: retryResult)), due to \(error)")
+            AFLogger.logger(for: .request).debug("\(#function) retryResult: \(String(describing: retryResult)), due to \(error)")
             switch retryResult {
             case .doNotRetry:
                 self.finish()
@@ -525,9 +527,10 @@ public class Request {
         if let error = error { self.error = error }
 
         // Start response handlers
-        AFLogger.logger(for: .request).debug("Start response handlers")
+        AFLogger.logger(for: .request).debug("\(#function) Start response handlers")
         processNextResponseSerializer()
 
+        AFLogger.logger(for: .request).debug("\(#function) requestDidFinish")
         eventMonitor?.requestDidFinish(self)
     }
 
@@ -538,7 +541,7 @@ public class Request {
     /// - Parameter closure: The closure containing the response serialization call.
     func appendResponseSerializer(_ closure: @escaping () -> Void) {
         $mutableState.write { mutableState in
-            AFLogger.logger(for: .request).debug("Add responseSerialize handler")
+            AFLogger.logger(for: .request).debug("\(#function) Add responseSerialize handler")
             mutableState.responseSerializers.append(closure)
 
             if mutableState.state == .finished {
@@ -552,7 +555,7 @@ public class Request {
             if mutableState.state.canTransitionTo(.resumed) {
                 underlyingQueue.async {
                     if self.delegate?.startImmediately == true {
-                        AFLogger.logger(for: .request).debug("This task auto-resume because self.delegate?.startImmediately is \(self.delegate!.startImmediately)")
+                        AFLogger.logger(for: .request).debug("\(#function) This task auto-resume because self.delegate?.startImmediately is \(self.delegate!.startImmediately)")
                         self.resume()
                     }
                 }
@@ -574,13 +577,14 @@ public class Request {
             }
         }
 
+        AFLogger.logger(for: .request).debug("\(#function) fetch nextResponseSerializer()")
         return responseSerializer
     }
 
     /// Processes the next response serializer and calls all completions if response serialization is complete.
     func processNextResponseSerializer() {
         guard let responseSerializer = nextResponseSerializer() else {
-            AFLogger.logger(for: .request).debug("all responseSerializerComplete handler finished!")
+            AFLogger.logger(for: .request).debug("\(#function) all responseSerializerComplete handler finished!")
 
             // Execute all response serializer completions and clear them
             var completions: [() -> Void] = []
@@ -603,11 +607,11 @@ public class Request {
                 mutableState.isFinishing = false
             }
 
-            AFLogger.logger(for: .request).debug("start to exec all response handler!")
+            AFLogger.logger(for: .request).debug("\(#function) start to exec all response handler!")
 
             completions.forEach { $0() }
 
-            AFLogger.logger(for: .request).debug("Cleanup the request")
+            AFLogger.logger(for: .request).debug("\(#function) Cleanup the request")
             // Cleanup the request
             cleanup()
 
