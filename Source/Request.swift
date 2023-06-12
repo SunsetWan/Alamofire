@@ -538,6 +538,7 @@ public class Request {
     /// - Parameter closure: The closure containing the response serialization call.
     func appendResponseSerializer(_ closure: @escaping () -> Void) {
         $mutableState.write { mutableState in
+            AFLogger.logger(for: .request).debug("Add responseSerialize handler")
             mutableState.responseSerializers.append(closure)
 
             if mutableState.state == .finished {
@@ -551,6 +552,7 @@ public class Request {
             if mutableState.state.canTransitionTo(.resumed) {
                 underlyingQueue.async {
                     if self.delegate?.startImmediately == true {
+                        AFLogger.logger(for: .request).debug("This task auto-resume because self.delegate?.startImmediately is \(self.delegate!.startImmediately)")
                         self.resume()
                     }
                 }
@@ -578,6 +580,8 @@ public class Request {
     /// Processes the next response serializer and calls all completions if response serialization is complete.
     func processNextResponseSerializer() {
         guard let responseSerializer = nextResponseSerializer() else {
+            AFLogger.logger(for: .request).debug("all responseSerializerComplete handler finished!")
+
             // Execute all response serializer completions and clear them
             var completions: [() -> Void] = []
 
@@ -599,8 +603,11 @@ public class Request {
                 mutableState.isFinishing = false
             }
 
+            AFLogger.logger(for: .request).debug("start to exec all response handler!")
+
             completions.forEach { $0() }
 
+            AFLogger.logger(for: .request).debug("Cleanup the request")
             // Cleanup the request
             cleanup()
 
@@ -615,7 +622,10 @@ public class Request {
     /// - Parameter completion: The completion handler provided with the response serializer, called when all serializers
     ///                         are complete.
     func responseSerializerDidComplete(completion: @escaping () -> Void) {
-        $mutableState.write { $0.responseSerializerCompletions.append(completion) }
+        $mutableState.write {
+            AFLogger.logger(for: .request).debug("after responseSerializerDidComplete, add response handler")
+            $0.responseSerializerCompletions.append(completion)
+        }
         processNextResponseSerializer()
     }
 

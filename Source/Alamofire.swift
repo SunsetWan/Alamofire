@@ -49,6 +49,7 @@ class AFLogger {
 
         case session = "🤠 session"
         case request = "🤑 request"
+        case responseSerialization = "😲 ResponseSerialization"
     }
 
     static func logger(for category: Category) -> Logger {

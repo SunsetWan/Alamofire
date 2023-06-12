@@ -214,6 +214,7 @@ extension DataRequest {
                                                                        completionHandler: @escaping (AFDataResponse<Serializer.SerializedObject>) -> Void)
         -> Self {
         appendResponseSerializer {
+            AFLogger.logger(for: .responseSerialization).debug("responseSerialize handler called")
             // Start work that should be on the serialization queue.
             let start = ProcessInfo.processInfo.systemUptime
             let result: AFResult<Serializer.SerializedObject> = Result {
@@ -235,14 +236,16 @@ extension DataRequest {
                                             metrics: self.metrics,
                                             serializationDuration: end - start,
                                             result: result)
-
+                AFLogger.logger(for: .responseSerialization).debug("did create DataResponse")
                 self.eventMonitor?.request(self, didParseResponse: response)
 
                 guard !self.isCancelled, let serializerError = result.failure, let delegate = self.delegate else {
+                    AFLogger.logger(for: .responseSerialization).debug("responseSerializerDidComplete")
                     self.responseSerializerDidComplete { queue.async { completionHandler(response) } }
                     return
                 }
 
+                AFLogger.logger(for: .responseSerialization).debug("May retry or not...")
                 delegate.retryResult(for: self, dueTo: serializerError) { retryResult in
                     var didComplete: (() -> Void)?
 
@@ -712,7 +715,8 @@ extension DataRequest {
                                emptyResponseCodes: Set<Int> = StringResponseSerializer.defaultEmptyResponseCodes,
                                emptyRequestMethods: Set<HTTPMethod> = StringResponseSerializer.defaultEmptyRequestMethods,
                                completionHandler: @escaping (AFDataResponse<String>) -> Void) -> Self {
-        response(queue: queue,
+        AFLogger.logger(for: .responseSerialization).debug("Set responseString and create StringResponseSerializer")
+        return response(queue: queue,
                  responseSerializer: StringResponseSerializer(dataPreprocessor: dataPreprocessor,
                                                               encoding: encoding,
                                                               emptyResponseCodes: emptyResponseCodes,

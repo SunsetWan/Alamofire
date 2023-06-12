@@ -1181,8 +1181,8 @@ extension Session: RequestDelegate {
     }
 
     public var startImmediately: Bool {
-        AFLogger.logger(for: .session).debug("\(#function) startRequestsImmediately: \(self.startRequestsImmediately)")
-        return false
+        AFLogger.logger(for: .session).debug("\(#function) startImmediately (from `RequestDelegate`): \(self.startRequestsImmediately)")
+        return startRequestsImmediately
     }
 
     public func cleanup(after request: Request) {
