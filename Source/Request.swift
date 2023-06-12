@@ -527,7 +527,7 @@ public class Request {
         if let error = error { self.error = error }
 
         // Start response handlers
-        AFLogger.logger(for: .request).debug("\(#function) Start response handlers")
+        AFLogger.logger(for: .request).debug("\(#function) Start response serializer")
         processNextResponseSerializer()
 
         AFLogger.logger(for: .request).debug("\(#function) requestDidFinish")
@@ -618,7 +618,10 @@ public class Request {
             return
         }
 
-        serializationQueue.async { responseSerializer() }
+        serializationQueue.async {
+            AFLogger.logger(for: .request).debug("\(#function) exec fetched responseSerializer")
+            responseSerializer()
+        }
     }
 
     /// Notifies the `Request` that the response serializer is complete.
