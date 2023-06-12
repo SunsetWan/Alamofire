@@ -571,20 +571,20 @@ public class Request {
 
         $mutableState.write { mutableState in
             let responseSerializerIndex = mutableState.responseSerializerCompletions.count
-
+            // ???
             if responseSerializerIndex < mutableState.responseSerializers.count {
                 responseSerializer = mutableState.responseSerializers[responseSerializerIndex]
             }
         }
 
-        AFLogger.logger(for: .request).debug("\(#function) fetch nextResponseSerializer()")
+        AFLogger.logger(for: .request).debug("\(#function) fetch nextResponseSerializer(), is nil: \(responseSerializer == nil)")
         return responseSerializer
     }
 
     /// Processes the next response serializer and calls all completions if response serialization is complete.
     func processNextResponseSerializer() {
         guard let responseSerializer = nextResponseSerializer() else {
-            AFLogger.logger(for: .request).debug("\(#function) all responseSerializerComplete handler finished!")
+            AFLogger.logger(for: .request).debug("\(#function) all responseSerializer finished!")
 
             // Execute all response serializer completions and clear them
             var completions: [() -> Void] = []

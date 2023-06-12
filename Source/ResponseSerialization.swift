@@ -214,7 +214,7 @@ extension DataRequest {
                                                                        completionHandler: @escaping (AFDataResponse<Serializer.SerializedObject>) -> Void)
         -> Self {
         appendResponseSerializer {
-            AFLogger.logger(for: .responseSerialization).debug("responseSerialize handler called")
+            AFLogger.logger(for: .responseSerialization).debug("\(#function) responseSerialize handler called")
             // Start work that should be on the serialization queue.
             let start = ProcessInfo.processInfo.systemUptime
             let result: AFResult<Serializer.SerializedObject> = Result {
@@ -236,12 +236,16 @@ extension DataRequest {
                                             metrics: self.metrics,
                                             serializationDuration: end - start,
                                             result: result)
-                AFLogger.logger(for: .responseSerialization).debug("did create DataResponse")
+                AFLogger.logger(for: .responseSerialization).debug("\(#function) did create DataResponse")
                 self.eventMonitor?.request(self, didParseResponse: response)
 
                 guard !self.isCancelled, let serializerError = result.failure, let delegate = self.delegate else {
-                    AFLogger.logger(for: .responseSerialization).debug("responseSerializerDidComplete")
-                    self.responseSerializerDidComplete { queue.async { completionHandler(response) } }
+                    AFLogger.logger(for: .responseSerialization).debug("\(#function) responseSerializerDidComplete")
+                    self.responseSerializerDidComplete { queue.async {
+                        AFLogger.logger(for: .responseSerialization).debug("\(#function) start exec setted response handler")
+                        completionHandler(response)
+                        }
+                    }
                     return
                 }
 
