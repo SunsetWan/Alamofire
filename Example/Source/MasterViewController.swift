@@ -25,6 +25,14 @@
 import Alamofire
 import UIKit
 
+class CustomizedSession {
+    static let shared: Session = {
+        let config = URLSessionConfiguration.default
+//        config.timeoutIntervalForRequest = 3
+        return Session(configuration: config)
+    }()
+}
+
 class MasterViewController: UITableViewController {
     // MARK: - Properties
 
@@ -56,7 +64,7 @@ class MasterViewController: UITableViewController {
                 switch segue.identifier! {
                 case "GET":
                     detailViewController.segueIdentifier = "GET"
-                    return AF.request("https://httpbin.org/get", interceptor: TokenAdapter(token: "sunset111"))
+                    return CustomizedSession.shared.request("https://httpbin.org/get", interceptor: TokenAdapter(token: "sunset111"))
                 case "POST":
                     detailViewController.segueIdentifier = "POST"
                     return AF.request("https://httpbin.org/post", method: .post)

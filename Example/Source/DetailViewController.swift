@@ -83,7 +83,7 @@ class DetailViewController: UITableViewController {
         let start = CACurrentMediaTime()
         
         let requestComplete: (HTTPURLResponse?, Result<String, AFError>) -> Void = { response, result in
-            print("🎃 DetailViewController custom setted requestComplete called")
+            print("🎃 DetailViewController custom setted requestComplete called, ret: \(result)")
             let end = CACurrentMediaTime()
             self.elapsedTime = end - start
             
