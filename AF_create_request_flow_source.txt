@@ -1,41 +1,7 @@
-@startuml
-partition Create AF.request (DataRequest) {
-:create URLRequest, encoded;
-:create DataRequest;
-floating note left
-* underlyingQueue
-* serializationQueue
-* eventMonitor
-* interceptor
-end note
-}
-partition Perform this request {
-:check `isCancelled `;
-:insert into Set `activeRequests`;
-:type casting as DataRequest;
-:performDataRequest();
-:dispatchPrecondition;
-:performSetupOperations;
-partition performSetupOperations {
-:URLRequestConvertible -> URLRequest;
-floating note left
-didCreateInitialURLRequest(initialRequest)
-end note
-:check `isCancelled` again;
-:Create RequestAdapter ???;
-}
-partition didCreateURLRequest {
-:check `isCancelled` aagain;
-:fetch sessionTask from Request;
-:add to requestTaskMap;
-floating note left
-key: Request, value: sessionTask
-end note
-:updateStatesForTask;
-floating note left
-if state is resumed,
-call task.resume()
-end note
-}
-}
-@enduml
+2023/06/19 09:02:23:771  [HTTP.Response] <- [200] (70.00ms) Path: /users/me Host: api-rlcn-stage.aaecosys.com Body: {UserID : 1fc3a2e4-9011-4688-9a44-299085232fd0, locale : {country : CN, language : en}, tokens : [{type : subscription-management, token : server-removed}], PhoneNo : +8618602510142, imageInfo : {original : {height : 200, format : webp, url : https://cdn-customer-image.aaecosys.com/user/803821a5-de38-4786-9798-9eb4ff871a89/ca79727f-a8dd-4534-b649-dc18224d4a72.webp, secure_url : https://cdn-customer-image.aaecosys.com/user/803821a5-de38-4786-9798-9eb4ff871a89/ca79727f-a8dd-4534-b649-dc18224d4a72.webp, width : 200}, thumbnail : {height : 128, format : webp, url : https://cdn-customer-image.aaecosys.com/user/803821a5-de38-4786-9798-9eb4ff871a89/cfcd8738-0ac3-456f-99c1-c93c140d9f72.webp, secure_url : https://cdn-customer-image.aaecosys.com/user/803821a5-de38-4786-9798-9eb4ff871a89/cfcd8738-0ac3-456f-99c1-c93c140d9f72.webp, width : 128}}, FirstName : 辣妹, LastName : 陈, optedInToOrchestra : 0, Email : lamei.chen@assaabloy.com}   
+
+
+
+log stream --predicate "subsystem = 'com.sunset-learn.explore-structured-logging'" --type log
+
+log config  --mode "level:debug" --subsystem com.sunset-learn.explore-structured-logging

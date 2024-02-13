@@ -65,6 +65,10 @@ class MasterViewController: UITableViewController {
                 case "GET":
                     detailViewController.segueIdentifier = "GET"
                     return CustomizedSession.shared.request("https://httpbin.org/get", interceptor: TokenAdapter(token: "sunset111"))
+                        .cURLDescription { description in
+                            print("😻")
+                            print(description)
+                        }
                 case "POST":
                     detailViewController.segueIdentifier = "POST"
                     return AF.request("https://httpbin.org/post", method: .post)
@@ -107,13 +111,6 @@ class MasterViewController: UITableViewController {
         }
     }
 }
-
-
-//import os
-//
-//class SunsetLogger {
-//    static let logger = Logger(subsystem: "sunset_learn_af", category: "before creating initial URLRequest")
-//}
 
 class TokenAdapter: RequestInterceptor {
     let token: String
