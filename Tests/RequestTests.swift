@@ -49,6 +49,96 @@ final class RequestResponseTestCase: BaseTestCase {
         XCTAssertNil(response?.error)
     }
 
+    func testThatDataRequestReceivesInitialResponse() {
+        // Given
+        let url = Endpoint.get.url
+        var initialResponse: HTTPURLResponse?
+        let didReceiveResponse = expectation(description: "didReceiveResponse")
+        let didComplete = expectation(description: "GET request should succeed: \(url)")
+        var response: DataResponse<Data?, AFError>?
+
+        // When
+        AF.request(url, parameters: ["foo": "bar"])
+            .onHTTPResponse { response in
+                initialResponse = response
+                didReceiveResponse.fulfill()
+            }
+            .response { resp in
+                response = resp
+                didComplete.fulfill()
+            }
+
+        wait(for: [didReceiveResponse, didComplete], timeout: timeout, enforceOrder: true)
+
+        // Then
+        XCTAssertEqual(initialResponse, response?.response)
+        XCTAssertNotNil(response?.request)
+        XCTAssertNotNil(response?.response)
+        XCTAssertNotNil(response?.data)
+        XCTAssertNil(response?.error)
+    }
+
+    func testThatDataRequestOnHTTPResponseCanAllow() {
+        // Given
+        let url = Endpoint.get.url
+        var initialResponse: HTTPURLResponse?
+        let didReceiveResponse = expectation(description: "didReceiveResponse")
+        let didComplete = expectation(description: "GET request should succeed: \(url)")
+        var response: DataResponse<Data?, AFError>?
+
+        // When
+        AF.request(url, parameters: ["foo": "bar"])
+            .onHTTPResponse { response, completionHandler in
+                initialResponse = response
+                didReceiveResponse.fulfill()
+                completionHandler(.allow)
+            }
+            .response { resp in
+                response = resp
+                didComplete.fulfill()
+            }
+
+        wait(for: [didReceiveResponse, didComplete], timeout: timeout, enforceOrder: true)
+
+        // Then
+        XCTAssertEqual(initialResponse, response?.response)
+        XCTAssertNotNil(response?.request)
+        XCTAssertNotNil(response?.response)
+        XCTAssertNotNil(response?.data)
+        XCTAssertNil(response?.error)
+    }
+
+    func testThatDataRequestOnHTTPResponseCanCancel() {
+        // Given
+        let url = Endpoint.get.url
+        var initialResponse: HTTPURLResponse?
+        let didReceiveResponse = expectation(description: "didReceiveResponse")
+        let didComplete = expectation(description: "GET request should succeed: \(url)")
+        var response: DataResponse<Data?, AFError>?
+
+        // When
+        let request = AF.request(url, parameters: ["foo": "bar"])
+            .onHTTPResponse { response, completionHandler in
+                initialResponse = response
+                didReceiveResponse.fulfill()
+                completionHandler(.cancel)
+            }
+            .response { resp in
+                response = resp
+                didComplete.fulfill()
+            }
+
+        wait(for: [didReceiveResponse, didComplete], timeout: timeout, enforceOrder: true)
+
+        // Then
+        XCTAssertEqual(initialResponse, response?.response)
+        XCTAssertNotNil(response?.request)
+        XCTAssertNotNil(response?.response)
+        XCTAssertNil(response?.data)
+        XCTAssertTrue(request.isCancelled, "onHTTPResponse cancelled request should have isCancelled == true")
+        XCTAssertTrue(response?.error?.isExplicitlyCancelledError == true, "onHTTPResponse cancelled request should be explicitly cancelled")
+    }
+
     func testRequestResponseWithProgress() {
         // Given
         let byteCount = 50 * 1024
@@ -1238,7 +1328,7 @@ final class RequestInvalidURLTestCase: BaseTestCase {
     }
 }
 
-#if canImport(zlib) && swift(>=5.6) // Same condition as `DeflateRequestCompressor`.
+#if canImport(zlib) // Same condition as `DeflateRequestCompressor`.
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
 final class RequestCompressionTests: BaseTestCase {
     func testThatRequestsCanBeCompressed() async {

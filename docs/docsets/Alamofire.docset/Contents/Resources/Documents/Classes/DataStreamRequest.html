@@ -21,9 +21,9 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          Alamofire 5.7.1 Docs
+          Alamofire 5.9.1 Docs
         </a>
-         (97% documented)
+         (96% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -153,6 +153,9 @@
                 <a class="nav-group-task-link" href="../Classes/Request/State.html">– State</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Request/ResponseDisposition.html">– ResponseDisposition</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Retrier.html">Retrier</a>
               </li>
               <li class="nav-group-task">
@@ -259,6 +262,9 @@
                 <a class="nav-group-task-link" href="../Enums/AFError/URLRequestValidationFailureReason.html">– URLRequestValidationFailureReason</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/AFInfo.html">AFInfo</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/AuthenticationError.html">AuthenticationError</a>
               </li>
               <li class="nav-group-task">
@@ -270,7 +276,7 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/Array.html">Array</a>
+                <a class="nav-group-task-link" href="../Extensions.html#/s:Sa">Array</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions.html#/c:objc(cs)NSBundle">Bundle</a>
@@ -322,6 +328,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/URLSessionConfiguration.html">URLSessionConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/%5BServerTrustEvaluating%5D.html">[ServerTrustEvaluating]</a>
               </li>
             </ul>
           </li>
@@ -400,6 +409,9 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/UploadableConvertible.html">UploadableConvertible</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/WebSocketMessageSerializer.html">WebSocketMessageSerializer</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -425,6 +437,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/DecodableStreamSerializer.html">DecodableStreamSerializer</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DecodableWebSocketMessageDecoder.html">DecodableWebSocketMessageDecoder</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DecodableWebSocketMessageDecoder/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/DeflateRequestCompressor.html">DeflateRequestCompressor</a>
@@ -864,25 +882,12 @@ to stop the stream at any time.</p>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/DataRequest%20%2F%20UploadRequest"></a>
-                <a name="//apple_ref/swift/Section/DataRequest / UploadRequest" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/DataRequest%20%2F%20UploadRequest"></a>
-                  <h3 class="section-name"><span>DataRequest / UploadRequest</span>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Alamofire17DataStreamRequestC07publishC05using2onAA0bC9PublisherVy16SerializedObjectQzGx_So17OS_dispatch_queueCtAA0bC10SerializerRzlF"></a>
-                    <a name="//apple_ref/swift/Method/publishStream(using:on:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC07publishC05using2onAA0bC9PublisherVy16SerializedObjectQzGx_So17OS_dispatch_queueCtAA0bC10SerializerRzlF">publishStream(using:<wbr>on:<wbr>)</a>
+                    <a name="/s:9Alamofire17DataStreamRequestC14onHTTPResponse0E07performACXDSo17OS_dispatch_queueC_ySo17NSHTTPURLResponseC_yAA0D0C19ResponseDispositionOctctF"></a>
+                    <a name="//apple_ref/swift/Method/onHTTPResponse(on:perform:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC14onHTTPResponse0E07performACXDSo17OS_dispatch_queueC_ySo17NSHTTPURLResponseC_yAA0D0C19ResponseDispositionOctctF">onHTTPResponse(on:<wbr>perform:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -890,16 +895,21 @@ to stop the stream at any time.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code> for this instance using the given <code><a href="../Protocols/DataStreamSerializer.html">DataStreamSerializer</a></code> and <code>DispatchQueue</code>.</p>
+                        <p>Sets a closure called whenever the <code><a href="../Classes/DataRequest.html">DataRequest</a></code> produces an <code>HTTPURLResponse</code> and providing a completion
+handler to return a <code>ResponseDisposition</code> value.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="n">publishStream</span><span class="o">&lt;</span><span class="kt">Serializer</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DataStreamSerializer.html">DataStreamSerializer</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">using</span> <span class="nv">serializer</span><span class="p">:</span> <span class="kt">Serializer</span><span class="p">,</span>
-                                                            <span class="n">on</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></span><span class="o">&lt;</span><span class="kt">Serializer</span><span class="o">.</span><span class="kt">SerializedObject</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">@_disfavoredOverload</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">onHTTPResponse</span><span class="p">(</span>
+    <span class="n">on</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span>
+    <span class="n">perform</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="n">_</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">,</span>
+                                <span class="n">_</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">ResponseDisposition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
@@ -910,24 +920,25 @@ to stop the stream at any time.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>serializer</em>
+                                <em>queue</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p><code><a href="../Protocols/DataStreamSerializer.html">DataStreamSerializer</a></code> used to serialize the streamed <code>Data</code>.</p>
+                                  <p><code>DispatchQueue</code> on which the closure will be called. <code>.main</code> by default.</p>
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>queue</em>
+                                <em>handler</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p><code>DispatchQueue</code> on which the <code>DataRequest.Stream</code> values will be published. <code>.main</code> by default.</p>
+                                  <p>Closure called when the instance produces an <code>HTTPURLResponse</code>. The <code>completionHandler</code> provided
+     MUST be called, otherwise the request will never complete.</p>
                                 </div>
                               </td>
                             </tr>
@@ -936,7 +947,7 @@ to stop the stream at any time.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code>.</p>
+                        <p>The instance.</p>
                       </div>
                     </section>
                   </div>
@@ -944,9 +955,9 @@ to stop the stream at any time.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Alamofire17DataStreamRequestC07publishB05queueAA0bC9PublisherVy10Foundation0B0VGSo012OS_dispatch_F0C_tF"></a>
-                    <a name="//apple_ref/swift/Method/publishData(queue:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC07publishB05queueAA0bC9PublisherVy10Foundation0B0VGSo012OS_dispatch_F0C_tF">publishData(queue:<wbr>)</a>
+                    <a name="/s:9Alamofire17DataStreamRequestC14onHTTPResponse0E07performACXDSo17OS_dispatch_queueC_ySo17NSHTTPURLResponseCctF"></a>
+                    <a name="//apple_ref/swift/Method/onHTTPResponse(on:perform:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC14onHTTPResponse0E07performACXDSo17OS_dispatch_queueC_ySo17NSHTTPURLResponseCctF">onHTTPResponse(on:<wbr>perform:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -954,16 +965,16 @@ to stop the stream at any time.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code> for this instance which uses a <code><a href="../Structs/PassthroughStreamSerializer.html">PassthroughStreamSerializer</a></code> to stream <code>Data</code>
-unserialized.</p>
+                        <p>Sets a closure called whenever the <code><a href="../Classes/DataRequest.html">DataRequest</a></code> produces an <code>HTTPURLResponse</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">publishData</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></span><span class="o">&lt;</span><span class="kt">Data</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">onHTTPResponse</span><span class="p">(</span><span class="n">on</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span>
+                           <span class="n">perform</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">HTTPURLResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
@@ -979,7 +990,19 @@ unserialized.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p><code>DispatchQueue</code> on which the <code>DataRequest.Stream</code> values will be published. <code>.main</code> by default.</p>
+                                  <p><code>DispatchQueue</code> on which the closure will be called. <code>.main</code> by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Closure called when the instance produces an <code>HTTPURLResponse</code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -988,151 +1011,7 @@ unserialized.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code>.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Alamofire17DataStreamRequestC13publishString5queueAA0bC9PublisherVySSGSo012OS_dispatch_G0C_tF"></a>
-                    <a name="//apple_ref/swift/Method/publishString(queue:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC13publishString5queueAA0bC9PublisherVySSGSo012OS_dispatch_G0C_tF">publishString(queue:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates a <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code> for this instance which uses a <code><a href="../Structs/StringStreamSerializer.html">StringStreamSerializer</a></code> to serialize stream
-<code>Data</code> values into <code>String</code> values.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">publishString</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>queue</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p><code>DispatchQueue</code> on which the <code>DataRequest.Stream</code> values will be published. <code>.main</code> by default.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>The <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code>.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Alamofire17DataStreamRequestC16publishDecodable4type5queue7decoder12preprocessorAA0bC9PublisherVyxGxm_So012OS_dispatch_H0CAA0B7Decoder_pAA0B12Preprocessor_ptSeRzlF"></a>
-                    <a name="//apple_ref/swift/Method/publishDecodable(type:queue:decoder:preprocessor:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC16publishDecodable4type5queue7decoder12preprocessorAA0bC9PublisherVyxGxm_So012OS_dispatch_H0CAA0B7Decoder_pAA0B12Preprocessor_ptSeRzlF">publishDecodable(type:<wbr>queue:<wbr>decoder:<wbr>preprocessor:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates a <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code> for this instance which uses a <code><a href="../Structs/DecodableStreamSerializer.html">DecodableStreamSerializer</a></code> with the provided
-parameters to serialize stream <code>Data</code> values into the provided type.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="n">publishDecodable</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">Decodable</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span> <span class="o">=</span> <span class="kt">T</span><span class="o">.</span><span class="k">self</span><span class="p">,</span>
-                                           <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span>
-                                           <span class="nv">decoder</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DataDecoder.html">DataDecoder</a></span> <span class="o">=</span> <span class="kt">JSONDecoder</span><span class="p">(),</span>
-                                           <span class="nv">preprocessor</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DataPreprocessor.html">DataPreprocessor</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/PassthroughPreprocessor.html">PassthroughPreprocessor</a></span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>type</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p><code>Decodable</code> type to which to decode stream <code>Data</code>. Inferred from the context by default.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>queue</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p><code>DispatchQueue</code> on which the <code>DataRequest.Stream</code> values will be published. <code>.main</code> by default.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>decoder</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p><code><a href="../Protocols/DataDecoder.html">DataDecoder</a></code> instance used to decode stream <code>Data</code>. <code>JSONDecoder()</code> by default.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>preprocessor</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p><code><a href="../Protocols/DataPreprocessor.html">DataPreprocessor</a></code> which filters incoming stream <code>Data</code> before serialization.
-          <code>PassthroughPreprocessor()</code> by default.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>The <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code>.</p>
+                        <p>The instance.</p>
                       </div>
                     </section>
                   </div>
@@ -1141,55 +1020,11 @@ parameters to serialize stream <code>Data</code> values into the provided type.<
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/DataStreamTask"></a>
-                <a name="//apple_ref/swift/Section/DataStreamTask" class="dashAnchor"></a>
+                <a name="/Response%20Serialization"></a>
+                <a name="//apple_ref/swift/Section/Response Serialization" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/DataStreamTask"></a>
-                  <h3 class="section-name"><span>DataStreamTask</span>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9Alamofire17DataStreamRequestC10streamTaskAA0bcF0VyF"></a>
-                    <a name="//apple_ref/swift/Method/streamTask()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC10streamTaskAA0bcF0VyF">streamTask()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates a <code><a href="../Structs/DataStreamTask.html">DataStreamTask</a></code> used to <code>await</code> streams of serialized values.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">streamTask</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DataStreamTask.html">DataStreamTask</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>The <code><a href="../Structs/DataStreamTask.html">DataStreamTask</a></code>.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/DataStreamRequest"></a>
-                <a name="//apple_ref/swift/Section/DataStreamRequest" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/DataStreamRequest"></a>
-                  <h3 class="section-name"><span>DataStreamRequest</span>
+                  <a class="section-name-link" href="#/Response%20Serialization"></a>
+                  <h3 class="section-name"><span>Response Serialization</span>
 </h3>
                 </div>
               </div>
@@ -1504,6 +1339,495 @@ parameters to serialize stream <code>Data</code> values into the provided type.<
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/DataRequest%20%2F%20UploadRequest"></a>
+                <a name="//apple_ref/swift/Section/DataRequest / UploadRequest" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/DataRequest%20%2F%20UploadRequest"></a>
+                  <h3 class="section-name"><span>DataRequest / UploadRequest</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Alamofire17DataStreamRequestC07publishC05using2onAA0bC9PublisherVy16SerializedObjectQzGx_So17OS_dispatch_queueCtAA0bC10SerializerRzlF"></a>
+                    <a name="//apple_ref/swift/Method/publishStream(using:on:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC07publishC05using2onAA0bC9PublisherVy16SerializedObjectQzGx_So17OS_dispatch_queueCtAA0bC10SerializerRzlF">publishStream(using:<wbr>on:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code> for this instance using the given <code><a href="../Protocols/DataStreamSerializer.html">DataStreamSerializer</a></code> and <code>DispatchQueue</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="n">publishStream</span><span class="o">&lt;</span><span class="kt">Serializer</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DataStreamSerializer.html">DataStreamSerializer</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">using</span> <span class="nv">serializer</span><span class="p">:</span> <span class="kt">Serializer</span><span class="p">,</span>
+                                                            <span class="n">on</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></span><span class="o">&lt;</span><span class="kt">Serializer</span><span class="o">.</span><span class="kt">SerializedObject</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>serializer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code><a href="../Protocols/DataStreamSerializer.html">DataStreamSerializer</a></code> used to serialize the streamed <code>Data</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>DispatchQueue</code> on which the <code>DataRequest.Stream</code> values will be published. <code>.main</code> by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Alamofire17DataStreamRequestC07publishB05queueAA0bC9PublisherVy10Foundation0B0VGSo012OS_dispatch_F0C_tF"></a>
+                    <a name="//apple_ref/swift/Method/publishData(queue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC07publishB05queueAA0bC9PublisherVy10Foundation0B0VGSo012OS_dispatch_F0C_tF">publishData(queue:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code> for this instance which uses a <code><a href="../Structs/PassthroughStreamSerializer.html">PassthroughStreamSerializer</a></code> to stream <code>Data</code>
+unserialized.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">publishData</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></span><span class="o">&lt;</span><span class="kt">Data</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>DispatchQueue</code> on which the <code>DataRequest.Stream</code> values will be published. <code>.main</code> by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Alamofire17DataStreamRequestC13publishString5queueAA0bC9PublisherVySSGSo012OS_dispatch_G0C_tF"></a>
+                    <a name="//apple_ref/swift/Method/publishString(queue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC13publishString5queueAA0bC9PublisherVySSGSo012OS_dispatch_G0C_tF">publishString(queue:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code> for this instance which uses a <code><a href="../Structs/StringStreamSerializer.html">StringStreamSerializer</a></code> to serialize stream
+<code>Data</code> values into <code>String</code> values.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">publishString</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>DispatchQueue</code> on which the <code>DataRequest.Stream</code> values will be published. <code>.main</code> by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Alamofire17DataStreamRequestC16publishDecodable4type5queue7decoder12preprocessorAA0bC9PublisherVyxGxm_So012OS_dispatch_H0CAA0B7Decoder_pAA0B12Preprocessor_ptSeRzlF"></a>
+                    <a name="//apple_ref/swift/Method/publishDecodable(type:queue:decoder:preprocessor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC16publishDecodable4type5queue7decoder12preprocessorAA0bC9PublisherVyxGxm_So012OS_dispatch_H0CAA0B7Decoder_pAA0B12Preprocessor_ptSeRzlF">publishDecodable(type:<wbr>queue:<wbr>decoder:<wbr>preprocessor:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code> for this instance which uses a <code><a href="../Structs/DecodableStreamSerializer.html">DecodableStreamSerializer</a></code> with the provided
+parameters to serialize stream <code>Data</code> values into the provided type.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available(macOS 10.15, iOS 13, watchOS 6, tvOS 13, *)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="n">publishDecodable</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">Decodable</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span> <span class="o">=</span> <span class="kt">T</span><span class="o">.</span><span class="k">self</span><span class="p">,</span>
+                                           <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span>
+                                           <span class="nv">decoder</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DataDecoder.html">DataDecoder</a></span> <span class="o">=</span> <span class="kt">JSONDecoder</span><span class="p">(),</span>
+                                           <span class="nv">preprocessor</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DataPreprocessor.html">DataPreprocessor</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/PassthroughPreprocessor.html">PassthroughPreprocessor</a></span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Decodable</code> type to which to decode stream <code>Data</code>. Inferred from the context by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>queue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>DispatchQueue</code> on which the <code>DataRequest.Stream</code> values will be published. <code>.main</code> by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>decoder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code><a href="../Protocols/DataDecoder.html">DataDecoder</a></code> instance used to decode stream <code>Data</code>. <code>JSONDecoder()</code> by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>preprocessor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code><a href="../Protocols/DataPreprocessor.html">DataPreprocessor</a></code> which filters incoming stream <code>Data</code> before serialization.
+          <code>PassthroughPreprocessor()</code> by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code><a href="../Structs/DataStreamPublisher.html">DataStreamPublisher</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/DataStreamTask"></a>
+                <a name="//apple_ref/swift/Section/DataStreamTask" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/DataStreamTask"></a>
+                  <h3 class="section-name"><span>DataStreamTask</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Alamofire17DataStreamRequestC13httpResponses15bufferingPolicyAA0C2OfVySo17NSHTTPURLResponseCGScS12ContinuationV09BufferingH0OyAI__G_tF"></a>
+                    <a name="//apple_ref/swift/Method/httpResponses(bufferingPolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC13httpResponses15bufferingPolicyAA0C2OfVySo17NSHTTPURLResponseCGScS12ContinuationV09BufferingH0OyAI__G_tF">httpResponses(bufferingPolicy:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <code><a href="../Structs/StreamOf.html">StreamOf&lt;HTTPURLResponse&gt;</a></code> for the instance&rsquo;s responses.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">httpResponses</span><span class="p">(</span><span class="nv">bufferingPolicy</span><span class="p">:</span> <span class="kt"><a href="../Structs/StreamOf.html">StreamOf</a></span><span class="o">&lt;</span><span class="kt">HTTPURLResponse</span><span class="o">&gt;.</span><span class="kt">BufferingPolicy</span> <span class="o">=</span> <span class="o">.</span><span class="n">unbounded</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/StreamOf.html">StreamOf</a></span><span class="o">&lt;</span><span class="kt">HTTPURLResponse</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bufferingPolicy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>BufferingPolicy</code> that determines the stream&rsquo;s buffering behavior.<code>.unbounded</code> by default.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code><a href="../Structs/StreamOf.html">StreamOf&lt;HTTPURLResponse&gt;</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Alamofire17DataStreamRequestC14onHTTPResponse7performACXDAA0D0C19ResponseDispositionOSo17NSHTTPURLResponseCYaYbc_tF"></a>
+                    <a name="//apple_ref/swift/Method/onHTTPResponse(perform:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC14onHTTPResponse7performACXDAA0D0C19ResponseDispositionOSo17NSHTTPURLResponseCYaYbc_tF">onHTTPResponse(perform:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets an async closure returning a <code><a href="../Classes/Request/ResponseDisposition.html">Request.ResponseDisposition</a></code>, called whenever the <code>DataStreamRequest</code>
+produces an <code>HTTPURLResponse</code>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Most requests will only produce a single response for each outgoing attempt (initial + retries).
+    However, some types of response may trigger multiple <code>HTTPURLResponse</code>s, such as multipart streams,
+    where responses after the first will contain the part headers.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">@_disfavoredOverload</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">onHTTPResponse</span><span class="p">(</span><span class="n">perform</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kd">@Sendable</span> <span class="p">(</span><span class="kt">HTTPURLResponse</span><span class="p">)</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">ResponseDisposition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Async closure executed when a new <code>HTTPURLResponse</code> is received and returning a
+     <code>ResponseDisposition</code> value. This value determines whether to continue the request or cancel it as
+     if <code>cancel()</code> had been called on the instance. Note, this closure is called on an arbitrary thread,
+     so any synchronous calls in it will execute in that context.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Alamofire17DataStreamRequestC14onHTTPResponse7performACXDySo17NSHTTPURLResponseCYaYbc_tF"></a>
+                    <a name="//apple_ref/swift/Method/onHTTPResponse(perform:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC14onHTTPResponse7performACXDySo17NSHTTPURLResponseCYaYbc_tF">onHTTPResponse(perform:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets an async closure called whenever the <code>DataStreamRequest</code> produces an <code>HTTPURLResponse</code>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Most requests will only produce a single response for each outgoing attempt (initial + retries).
+    However, some types of response may trigger multiple <code>HTTPURLResponse</code>s, such as multipart streams,
+    where responses after the first will contain the part headers.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">onHTTPResponse</span><span class="p">(</span><span class="n">perform</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kd">@Sendable</span> <span class="p">(</span><span class="kt">HTTPURLResponse</span><span class="p">)</span> <span class="n">async</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>handler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Async closure executed when a new <code>HTTPURLResponse</code> is received. Note, this closure is called on an
+     arbitrary thread, so any synchronous calls in it will execute in that context.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Alamofire17DataStreamRequestC10streamTaskAA0bcF0VyF"></a>
+                    <a name="//apple_ref/swift/Method/streamTask()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Alamofire17DataStreamRequestC10streamTaskAA0bcF0VyF">streamTask()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <code><a href="../Structs/DataStreamTask.html">DataStreamTask</a></code> used to <code>await</code> streams of serialized values.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">streamTask</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DataStreamTask.html">DataStreamTask</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code><a href="../Structs/DataStreamTask.html">DataStreamTask</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
               <ul class="item-container">
                 <li class="item">
                   <div>
@@ -1682,8 +2006,8 @@ type matches any specified in the Accept HTTP header field.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2023 <a class="link" href="http://alamofire.org/" target="_blank" rel="external noopener">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2023-05-10)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>&copy; 2024 <a class="link" href="http://alamofire.org/" target="_blank" rel="external noopener">Alamofire Software Foundation</a>. All rights reserved. (Last updated: 2024-03-30)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

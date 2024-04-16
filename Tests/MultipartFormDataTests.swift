@@ -26,7 +26,7 @@ import Alamofire
 import Foundation
 import XCTest
 
-struct EncodingCharacters {
+enum EncodingCharacters {
     static let crlf = "\r\n"
 }
 
@@ -111,7 +111,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         // Then
         XCTAssertNotNil(encodedData, "encoded data should not be nil")
 
-        if let encodedData = encodedData {
+        if let encodedData {
             let boundary = multipartFormData.boundary
 
             let expectedString = (
@@ -150,7 +150,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         // Then
         XCTAssertNotNil(encodedData, "encoded data should not be nil")
 
-        if let encodedData = encodedData {
+        if let encodedData {
             let boundary = multipartFormData.boundary
 
             let expectedString = (
@@ -192,7 +192,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         // Then
         XCTAssertNotNil(encodedData, "encoded data should not be nil")
 
-        if let encodedData = encodedData {
+        if let encodedData {
             let boundary = multipartFormData.boundary
 
             var expectedData = Data()
@@ -231,7 +231,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         // Then
         XCTAssertNotNil(encodedData, "encoded data should not be nil")
 
-        if let encodedData = encodedData {
+        if let encodedData {
             let boundary = multipartFormData.boundary
 
             var expectedData = Data()
@@ -281,7 +281,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         // Then
         XCTAssertNotNil(encodedData, "encoded data should not be nil")
 
-        if let encodedData = encodedData {
+        if let encodedData {
             let boundary = multipartFormData.boundary
 
             var expectedData = Data()
@@ -333,7 +333,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         // Then
         XCTAssertNotNil(encodedData, "encoded data should not be nil")
 
-        if let encodedData = encodedData {
+        if let encodedData {
             let boundary = multipartFormData.boundary
 
             var expectedData = Data()
@@ -389,7 +389,7 @@ class MultipartFormDataEncodingTestCase: BaseTestCase {
         // Then
         XCTAssertNotNil(encodedData, "encoded data should not be nil")
 
-        if let encodedData = encodedData {
+        if let encodedData {
             let boundary = multipartFormData.boundary
 
             var expectedData = Data()
@@ -591,6 +591,53 @@ final class MultipartFormDataWriteEncodedDataToDiskTestCase: BaseTestCase {
             expectedFileData.append(BoundaryGenerator.boundaryData(boundaryType: .final, boundaryKey: boundary))
 
             XCTAssertEqual(fileData, expectedFileData, "file data should match expected file data")
+        } else {
+            XCTFail("file data should not be nil")
+        }
+    }
+
+    func testWritingEncodedStreamBodyPartToDiskRespectingBodyLength() {
+        // Given
+        let destinationFileURL = temporaryFileURL
+        let multipartFormData = MultipartFormData()
+
+        let unicornImageURL = url(forResource: "unicorn", withExtension: "png")
+        let unicornImageData = try! Data(contentsOf: unicornImageURL)
+        let unicornDataLength = unicornImageData.count
+
+        // Write only PART of the file
+        let expectedFileStreamUploadLength = UInt64(unicornDataLength / 2)
+        multipartFormData.append(InputStream(url: unicornImageURL)!,
+                                 withLength: expectedFileStreamUploadLength,
+                                 name: "unicorn",
+                                 fileName: "unicorn.png",
+                                 mimeType: "image/png")
+
+        var encodingError: Error?
+
+        // When
+        do {
+            try multipartFormData.writeEncodedData(to: destinationFileURL)
+        } catch {
+            encodingError = error
+        }
+
+        // Then
+        XCTAssertNil(encodingError, "encoding error should be nil")
+
+        if let destinationFileData = try? Data(contentsOf: destinationFileURL) {
+            let boundary = multipartFormData.boundary
+
+            var expectedFileData = Data()
+            expectedFileData.append(BoundaryGenerator.boundaryData(boundaryType: .initial, boundaryKey: boundary))
+            expectedFileData.append(Data((
+                "Content-Disposition: form-data; name=\"unicorn\"; filename=\"unicorn.png\"\(crlf)" +
+                    "Content-Type: image/png\(crlf)\(crlf)").utf8
+            ))
+            expectedFileData.append(unicornImageData.prefix(Int(expectedFileStreamUploadLength)))
+            expectedFileData.append(BoundaryGenerator.boundaryData(boundaryType: .final, boundaryKey: boundary))
+
+            XCTAssertEqual(destinationFileData, expectedFileData, "file data should match expected file data")
         } else {
             XCTFail("file data should not be nil")
         }
