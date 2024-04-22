@@ -541,7 +541,7 @@ public class Request {
     ///
     /// - Parameter closure: The closure containing the response serialization call.
     func appendResponseSerializer(_ closure: @escaping () -> Void) {
-        $mutableState.write { mutableState in
+        mutableState.write { mutableState in
             AFLogger.logger(for: .request).debug("\(#function) Add responseSerialize handler")
             mutableState.responseSerializers.append(closure)
 
@@ -630,7 +630,7 @@ public class Request {
     /// - Parameter completion: The completion handler provided with the response serializer, called when all serializers
     ///                         are complete.
     func responseSerializerDidComplete(completion: @escaping () -> Void) {
-        $mutableState.write {
+        mutableState.write {
             AFLogger.logger(for: .request).debug("after responseSerializerDidComplete, add response handler")
             $0.responseSerializerCompletions.append(completion)
         }
