@@ -1234,8 +1234,10 @@ open class Session {
 
     func adapter(for request: Request) -> RequestAdapter? {
         if let requestInterceptor = request.interceptor, let sessionInterceptor = interceptor {
+            // `request` and `sessionInterceptor` both have its interceptor
             return Interceptor(adapters: [requestInterceptor, sessionInterceptor])
         } else {
+            // using `request`'s interceptor, by default using session's interceptor
             return request.interceptor ?? interceptor
         }
     }

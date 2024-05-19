@@ -470,7 +470,7 @@ public class Request {
         self.error = self.error ?? error
 
         let validators = validators.read { $0 }
-        AFLogger.logger(for: .request).debug("\(#function) run validators")
+        AFLogger.logger(for: .request).debug("\(#function) run validators, count: \(validators.count)")
         validators.forEach { $0() }
 
         eventMonitor?.request(self, didCompleteTask: task, with: error)
@@ -556,7 +556,6 @@ public class Request {
             if mutableState.state.canTransitionTo(.resumed) {
                 underlyingQueue.async {
                     if self.delegate?.startImmediately == true {
-                        AFLogger.logger(for: .request).debug("\(#function) This task auto-resume because self.delegate?.startImmediately is \(self.delegate!.startImmediately)")
                         self.resume()
                     }
                 }
@@ -608,7 +607,7 @@ public class Request {
                 mutableState.isFinishing = false
             }
 
-            AFLogger.logger(for: .request).debug("\(#function) start to exec all response handler!")
+            AFLogger.logger(for: .request).debug("\(#function) start to exec all response serializer completions!")
 
             completions.forEach { $0() }
 
@@ -742,6 +741,7 @@ public class Request {
     /// - Returns: The instance.
     @discardableResult
     public func resume() -> Self {
+        AFLogger.logger(for: .request).debug("\(#function)")
         mutableState.write { mutableState in
             guard mutableState.state.canTransitionTo(.resumed) else { return }
 
