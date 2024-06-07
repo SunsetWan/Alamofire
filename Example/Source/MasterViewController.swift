@@ -54,6 +54,40 @@ class MasterViewController: UITableViewController {
         monitorReachability()
     }
 
+
+    func routerAF() {
+        enum Router: URLRequestConvertible {
+            case get, post
+
+            var baseURL: URL {
+                return URL(string: "https://httpbin.org")!
+            }
+
+            var method: HTTPMethod {
+                switch self {
+                case .get: return .get
+                case .post: return .post
+                }
+            }
+
+            var path: String {
+                switch self {
+                case .get: return "get"
+                case .post: return "post"
+                }
+            }
+
+            func asURLRequest() throws -> URLRequest {
+                let url = baseURL.appendingPathComponent(path)
+                var request = URLRequest(url: url)
+                request.method = method
+
+                return request
+            }
+        }
+        AF.request(Router.get)
+    }
+
     // MARK: - UIStoryboardSegue
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -64,7 +98,7 @@ class MasterViewController: UITableViewController {
                 switch segue.identifier! {
                 case "GET":
                     detailViewController.segueIdentifier = "GET"
-                    return CustomizedSession.shared.request("https://httpbin.org/get", interceptor: TokenAdapter(token: "sunset111"))
+                    return CustomizedSession.shared.request("https://httpbin.org/status/429", interceptor: TokenAdapter(token: "sunset111"))
                         .cURLDescription { description in
                             print("😻")
                             print(description)

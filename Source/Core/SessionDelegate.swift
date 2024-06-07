@@ -213,6 +213,7 @@ extension SessionDelegate: URLSessionTaskDelegate {
 
     open func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
 //        NSLog("URLSession: \(session), task: \(task), didCompleteWithError: \(error)")
+        print("🎃 \(#function) task.response: \(task.response as Any)")
         eventMonitor?.urlSession(session, task: task, didCompleteWithError: error)
 
         let request = stateProvider?.request(for: task)

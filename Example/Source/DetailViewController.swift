@@ -110,6 +110,8 @@ class DetailViewController: UITableViewController {
         
         if let request = request as? DataRequest {
             request.responseString { response in
+                let metric = response.metrics
+//                print("🎃 response metric, ret: \(metric as Any)")
                 requestComplete(response.response, response.result)
             }
         } else if let request = request as? DownloadRequest {
